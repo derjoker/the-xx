@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebView, View, Button } from 'react-native';
+import { WebView, View, Button, AsyncStorage } from 'react-native';
 import { Slider } from 'react-native-elements';
 import showdown from 'showdown';
 
@@ -41,7 +41,7 @@ function replace(text = '', percent = 0.5) {
 }
 
 const defaultText = `
-Ein ganz **neues** Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungs­stärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
+Ein ganz neues Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungs­stärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
 `;
 
 const converter = new showdown.Converter();
@@ -54,7 +54,6 @@ export default class HomeScreen extends React.Component {
     this.state = {
       highlight: false,
       percent: 0.2,
-      text: converter.makeHtml(replace(defaultText, 0.2)),
     };
   }
   toggle() {
@@ -67,6 +66,17 @@ export default class HomeScreen extends React.Component {
     this.setState({
       percent: value,
       text,
+    });
+  }
+  componentWillMount() {
+    AsyncStorage.getItem('text').then(text => {
+      if (!text) {
+        text = defaultText;
+        AsyncStorage.setItem('text', text);
+      }
+      this.setState({
+        text: converter.makeHtml(replace(text, this.state.percent)),
+      });
     });
   }
   render() {

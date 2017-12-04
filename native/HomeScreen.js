@@ -80,8 +80,24 @@ export default class HomeScreen extends React.Component {
       <View style={{ flex: 1 }}>
         <WebView source={{ html }} />
         <Slider value={percent} onValueChange={this.setPercent} />
-        <Button title={'Highlight'} onPress={this.toggle} />
+        <Button title="Highlight" onPress={this.toggle} />
       </View>
     );
   }
 }
+
+HomeScreen.navigationOptions = props => {
+  const { navigation } = props;
+  return {
+    title: 'xx',
+    headerRight: (
+      <Button
+        title="Edit"
+        onPress={() => {
+          const { navigate } = props.navigation;
+          navigate('Edit');
+        }}
+      />
+    ),
+  };
+};

@@ -1,16 +1,12 @@
 import React from 'react';
-import { Text, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 
 import HomeScreen from './HomeScreen';
+import EditScreen from './EditScreen';
 
 const Navigator = StackNavigator({
-  Home: {
-    screen: HomeScreen,
-    navigationOptions: ({ navigation }) => ({
-      title: 'the xx',
-    }),
-  },
+  Home: { screen: HomeScreen },
+  Edit: { screen: EditScreen },
 });
 
 export default class App extends React.Component {

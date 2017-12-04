@@ -1,5 +1,5 @@
 import React from 'react';
-import { WebView } from 'react-native';
+import { WebView, View, Button } from 'react-native';
 import showdown from 'showdown';
 
 import regex from './regex';
@@ -46,11 +46,30 @@ Ein ganz **neues** Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch 
 const converter = new showdown.Converter();
 
 export default class HomeScreen extends React.Component {
+  constructor() {
+    super();
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      highlight: false,
+      text: converter.makeHtml(replace(text, 0.2)),
+    };
+  }
+  toggle() {
+    this.setState({
+      highlight: !this.state.highlight,
+    });
+  }
   render() {
+    const html = template(
+      this.state.text,
+      this.state.highlight ? 'yellow' : 'black'
+    );
+    // TODO: Flip
     return (
-      <WebView
-        source={{ html: template(converter.makeHtml(replace(text, 0.2))) }}
-      />
+      <View style={{ flex: 1 }}>
+        <WebView source={{ html }} />
+        <Button title={'Highlight'} onPress={this.toggle} />
+      </View>
     );
   }
 }

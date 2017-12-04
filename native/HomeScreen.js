@@ -1,5 +1,6 @@
 import React from 'react';
 import { WebView } from 'react-native';
+import showdown from 'showdown';
 
 function template(body) {
   return `
@@ -32,11 +33,13 @@ function template(body) {
 }
 
 const text = `
-Ein ganz neues Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungs­stärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
+Ein ganz **neues** Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungs­stärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
 `;
+
+const converter = new showdown.Converter();
 
 export default class HomeScreen extends React.Component {
   render() {
-    return <WebView source={{ html: template(text) }} />;
+    return <WebView source={{ html: template(converter.makeHtml(text)) }} />;
   }
 }

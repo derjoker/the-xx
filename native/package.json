@@ -1,6 +1,6 @@
 {
   "name": "native",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "private": true,
   "devDependencies": {
     "jest-expo": "23.0.0",
@@ -22,6 +22,7 @@
     "expo": "^23.0.4",
     "react": "16.0.0",
     "react-native": "0.50.3",
+    "react-native-elements": "^0.18.4",
     "react-navigation": "^1.0.0-beta.21",
     "showdown": "^1.8.3"
   }

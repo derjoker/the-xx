@@ -1,5 +1,6 @@
 import React from 'react';
 import { WebView, View, Button } from 'react-native';
+import { Slider } from 'react-native-elements';
 import showdown from 'showdown';
 
 import regex from './regex';
@@ -39,7 +40,7 @@ function replace(text = '', percent = 0.5) {
   });
 }
 
-const text = `
+const defaultText = `
 Ein ganz **neues** Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungs­stärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
 `;
 
@@ -49,9 +50,11 @@ export default class HomeScreen extends React.Component {
   constructor() {
     super();
     this.toggle = this.toggle.bind(this);
+    this.setPercent = this.setPercent.bind(this);
     this.state = {
       highlight: false,
-      text: converter.makeHtml(replace(text, 0.2)),
+      percent: 0.2,
+      text: converter.makeHtml(replace(defaultText, 0.2)),
     };
   }
   toggle() {
@@ -59,7 +62,15 @@ export default class HomeScreen extends React.Component {
       highlight: !this.state.highlight,
     });
   }
+  setPercent(value) {
+    const text = converter.makeHtml(replace(defaultText, value));
+    this.setState({
+      percent: value,
+      text,
+    });
+  }
   render() {
+    const { percent } = this.state;
     const html = template(
       this.state.text,
       this.state.highlight ? 'yellow' : 'black'
@@ -68,6 +79,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={{ flex: 1 }}>
         <WebView source={{ html }} />
+        <Slider value={percent} onValueChange={this.setPercent} />
         <Button title={'Highlight'} onPress={this.toggle} />
       </View>
     );

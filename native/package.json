@@ -1,6 +1,6 @@
 {
   "name": "native",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "private": true,
   "devDependencies": {
     "jest-expo": "23.0.0",

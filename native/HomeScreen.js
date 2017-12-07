@@ -62,10 +62,10 @@ export default class HomeScreen extends React.Component {
     });
   }
   setPercent(value) {
-    const text = converter.makeHtml(replace(defaultText, value));
+    const replacedText = converter.makeHtml(replace(this.state.text, value));
     this.setState({
       percent: value,
-      text,
+      replacedText,
     });
   }
   componentWillMount() {
@@ -75,14 +75,15 @@ export default class HomeScreen extends React.Component {
         AsyncStorage.setItem('text', text);
       }
       this.setState({
-        text: converter.makeHtml(replace(text, this.state.percent)),
+        text,
+        replacedText: converter.makeHtml(replace(text, this.state.percent)),
       });
     });
   }
   render() {
     const { percent } = this.state;
     const html = template(
-      this.state.text,
+      this.state.replacedText,
       this.state.highlight ? 'yellow' : 'black'
     );
     // TODO: Flip

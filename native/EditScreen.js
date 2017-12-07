@@ -20,6 +20,7 @@ export default class EditScreen extends React.Component {
   render() {
     return (
       <View>
+        <Button title="Save" onPress={this.save} />
         <TextInput
           multiline
           style={{
@@ -29,7 +30,6 @@ export default class EditScreen extends React.Component {
           onChangeText={text => this.setState({ text })}
           value={this.state.text}
         />
-        <Button title="Save" onPress={this.save} />
       </View>
     );
   }

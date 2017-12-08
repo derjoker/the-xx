@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Affix, Button, Slider, Modal } from 'antd';
 import './App.css';
 
 import regex from './regex';
@@ -39,6 +40,18 @@ class App extends Component {
       percent: value,
     });
   };
+  edit = () => {
+    this.setState({ modal: !this.state.modal });
+  };
+  save = () => {
+    const text = this.textarea.value;
+    window.localStorage.setItem('text', text);
+    this.setIndexes(text, this.state.percent);
+    this.setState({
+      modal: false,
+      text,
+    });
+  };
   componentWillMount() {
     let text = window.localStorage.getItem('text');
     if (!text) {
@@ -52,13 +65,48 @@ class App extends Component {
     const replacedText = this.getReplacedText();
     return (
       <div className="container">
-        <div>
-          <button onClick={this.toggle}>Highlight</button>
-        </div>
+        <Affix>
+          <div>
+            <Button type="primary" onClick={this.toggle}>
+              Highlight
+            </Button>
+            <Button type="primary" onClick={this.edit}>
+              Edit
+            </Button>
+            <Slider
+              max={1}
+              step={0.1}
+              defaultValue={this.state.percent}
+              onChange={this.setPercent}
+            />
+          </div>
+        </Affix>
         <div dangerouslySetInnerHTML={{ __html: replacedText }} />
+        <div>
+          <Modal
+            title="Text"
+            visible={this.state.modal}
+            onOk={this.save}
+            onCancel={this.edit}
+          >
+            <textarea
+              style={textareaStyle}
+              ref={textarea => {
+                this.textarea = textarea;
+              }}
+              defaultValue={this.state.text}
+            />
+          </Modal>
+        </div>
       </div>
     );
   }
 }
 
 export default App;
+
+const textareaStyle = {
+  width: '100%',
+  height: '300px',
+  fontSize: '16px',
+};

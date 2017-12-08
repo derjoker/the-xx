@@ -1,12 +1,13 @@
 {
   "name": "web",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "dependencies": {
     "antd": "^3.0.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "showdown": "^1.8.4"
   },
   "scripts": {
     "start": "react-app-rewired start",

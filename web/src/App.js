@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Affix, Button, Slider, Modal } from 'antd';
+import showdown from 'showdown';
+
 import './App.css';
 
 import regex from './regex';
@@ -7,6 +9,8 @@ import regex from './regex';
 const defaultText = `
 Ein ganz neues Design aus Glas. Die beliebteste Kamera der Welt, jetzt noch besser. Der leistungsstärkste und intelligenteste Chip, den es je in einem Smartphone gab. Kabelloses Laden – ganz einfach. Und Augmented Reality, so beeindruckend wie noch nie. iPhone 8. Eine neue iPhone Generation.
 `;
+
+const converter = new showdown.Converter();
 
 class App extends Component {
   state = {
@@ -62,7 +66,7 @@ class App extends Component {
     this.setState({ text });
   }
   render() {
-    const replacedText = this.getReplacedText();
+    const replacedText = converter.makeHtml(this.getReplacedText());
     return (
       <div className="container">
         <Affix>

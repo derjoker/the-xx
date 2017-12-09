@@ -85,7 +85,10 @@ class App extends Component {
             />
           </div>
         </Affix>
-        <div dangerouslySetInnerHTML={{ __html: replacedText }} />
+        <div
+          onClick={this.toggle}
+          dangerouslySetInnerHTML={{ __html: replacedText }}
+        />
         <div>
           <Modal
             title="Text"

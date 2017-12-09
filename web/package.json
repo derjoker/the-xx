@@ -1,15 +1,19 @@
 {
   "name": "web",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "private": true,
+  "homepage": "https://derjoker.github.io/the-xx",
   "dependencies": {
     "antd": "^3.0.0",
+    "gh-pages": "^1.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-scripts": "1.0.17",
     "showdown": "^1.8.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test --env=jsdom",

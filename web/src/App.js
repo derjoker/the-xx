@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Affix, Button, Slider, Modal } from 'antd';
+import { Affix, Slider, Modal } from 'antd';
 import showdown from 'showdown';
 import Hammer from 'react-hammerjs';
 

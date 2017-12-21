@@ -79,22 +79,14 @@ class App extends Component {
     return (
       <div className="container">
         <Affix>
-          <div>
-            <Button type="primary" onClick={this.toggle}>
-              Highlight
-            </Button>
-            <Button type="primary" onClick={this.edit}>
-              Edit
-            </Button>
-            <Slider
-              max={1}
-              step={0.1}
-              defaultValue={this.state.percent}
-              onChange={this.setPercent}
-            />
-          </div>
+          <Slider
+            max={1}
+            step={0.1}
+            defaultValue={this.state.percent}
+            onChange={this.setPercent}
+          />
         </Affix>
-        <Hammer onTap={this.toggle} onSwipe={this.swipe}>
+        <Hammer onTap={this.toggle} onDoubleTap={this.edit} onSwipe={this.swipe}>
           <div dangerouslySetInnerHTML={{ __html: replacedText }} />
         </Hammer>
         <div>

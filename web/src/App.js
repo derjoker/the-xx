@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Affix, Button, Slider, Modal } from 'antd';
 import showdown from 'showdown';
+import Hammer from 'react-hammerjs';
 
 import './App.css';
 
@@ -44,6 +45,14 @@ class App extends Component {
       percent: value,
     });
   };
+  swipe = event => {
+    let { percent } = this.state;
+    percent += event.deltaX / 1000;
+    console.log(percent);
+    if (percent < 0) percent = 0;
+    if (percent > 1) percent = 1;
+    this.setPercent(percent);
+  };
   edit = () => {
     this.setState({ modal: !this.state.modal });
   };
@@ -85,10 +94,9 @@ class App extends Component {
             />
           </div>
         </Affix>
-        <div
-          onClick={this.toggle}
-          dangerouslySetInnerHTML={{ __html: replacedText }}
-        />
+        <Hammer onTap={this.toggle} onSwipe={this.swipe}>
+          <div dangerouslySetInnerHTML={{ __html: replacedText }} />
+        </Hammer>
         <div>
           <Modal
             title="Text"

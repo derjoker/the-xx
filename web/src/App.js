@@ -46,12 +46,13 @@ class App extends Component {
     });
   };
   swipe = event => {
-    let { percent } = this.state;
-    percent += event.deltaX / 1000;
-    console.log(percent);
-    if (percent < 0) percent = 0;
-    if (percent > 1) percent = 1;
-    this.setPercent(percent);
+    const { percent } = this.state;
+    let value = percent;
+    if (event.deltaX > 50) value += 0.1;
+    if (event.deltaX < -50) value -= 0.1;
+    if (value < 0) value = 0;
+    if (value > 1) value = 1;
+    if (value !== percent) this.setPercent(value);
   };
   edit = () => {
     this.setState({ modal: !this.state.modal });
@@ -82,7 +83,7 @@ class App extends Component {
           <Slider
             max={1}
             step={0.1}
-            defaultValue={this.state.percent}
+            value={this.state.percent}
             onChange={this.setPercent}
           />
         </Affix>
